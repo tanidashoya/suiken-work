@@ -3,6 +3,9 @@ from sqlalchemy import create_engine,Column,Integer,String
 # sessionmaker　データベースとやり取りする「セッションオブジェクト」を生成する工場関数。
 from sqlalchemy.orm import declarative_base,sessionmaker
 
+# ORM（Object-Relational Mapping） とは：
+# 「Pythonなどのオブジェクト（＝クラス）と、データベースのテーブル（＝リレーショナル構造）を**対応（マッピング）**させる技術」のこと。
+
 # SQLAlchemyのエンジン（DBとの接続管理オブジェクト）を作成
 # echo=Trueにすると実行されたSQLがログに出力される（デバッグ用）
 engine = create_engine("sqlite:///user_data.db",echo=False)

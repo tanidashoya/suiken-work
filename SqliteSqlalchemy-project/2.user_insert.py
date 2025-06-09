@@ -7,6 +7,7 @@ import hashlib
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
+# データベースへの 接続口（engineで定義） を作成する。
 engine = create_engine("sqlite:///user_data.db",echo=False)
 Base = declarative_base()
 
@@ -18,7 +19,12 @@ class User(Base):
     username = Column(String,unique=True,nullable=False)
     password = Column(String,nullable=False)
 
+# sessionmaker は、ORMで**データベースとやりとりする「セッション（通信）」をつくるための工場（ファクトリ）*
 # 「engine（接続情報）を使って、データベース操作専用の session（取引窓口）を作成する」
+# sessionmakerでセッションを生成する関数を作る
+# Session は「セッションオブジェクトを生成するファクトリ関数（＝クラスのように振る舞う関数）」であって、まだセッションそのものではありません。
+# その関数を使ってセッションを作成（＝DBと接続）
+# ⇒⇒⇒⇒一言でいうと【「接続情報をもとに、**データベースに安全にアクセスする“操作用オブジェクト（session）”**を作成する」】
 Session = sessionmaker(bind=engine)
 session =Session()
 
@@ -26,7 +32,10 @@ username = input("ユーザー名を入力：")
 password = input("パスワードを入力：")
 hashed_password = hash_password(password)
 
+# new_user = User(...) だけでは、まだ「Pythonオブジェクトを作った」だけであって、データベースには何も追加されていない。
 new_user = User(username=username,password=hashed_password)
+
+# テーブルに追加
 session.add(new_user)
 session.commit()
 
@@ -57,5 +66,8 @@ engine を使って接続先（SQLiteなど）を教えている
 など、あらゆる操作ができるようになる！
 """
 
+"""
+Session は「セッションオブジェクトを生成するファクトリ関数（＝クラスのように振る舞う関数）」であって、まだセッションそのものではありません。
 
+"""
 
