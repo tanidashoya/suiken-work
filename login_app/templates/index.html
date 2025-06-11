@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>ようこそ {{ user.username }} さん</h1>
+
+    <form action="/add" method="post">
+        <input name="title" placeholder="献立名">
+        <button>献立を追加</button>
+    </form>
+
+    <h2>献立一覧</h2>
+    <ul>
+        {% for meal in meals %}
+            <li>{{ meal.title }}</li>
+        {% endfor %}
+    </ul>
+
+<a href="/logout">ログアウト</a>
+
+</body>
+</html>
