@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>お問い合わせフォーム</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <h1>お問い合わせ</h1>
+<!-- Flaskに「今 flash されているメッセージを messages という名前で取り出して使うよ」と宣言
+    with は「一時的に変数を定義するブロック」だと思ってOKです（Pythonの with とは少し違います） -->
+<!-- Jinja2（Flaskのテンプレート）では、{% with %} ブロックを使って
+    一時的な変数を定義することができます。 -->
+
+  {# ✅ flashメッセージの表示部分 #}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-message">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" action="/contact">
+    <label for="name">お名前</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">メールアドレス</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">お問い合わせ内容</label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+
+    <button type="submit">送信</button>
+  </form>
+
+</body>
+</html>

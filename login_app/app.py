@@ -104,12 +104,13 @@ def login():
             return "ログイン失敗"
     return render_template("login.html")
 
-
+# ログアウト
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)
     return redirect("/login")
 
+# 新しいメニュー追加
 @app.route("/add", methods=["POST"])
 def add_meal():
     if "user_id" in session:
