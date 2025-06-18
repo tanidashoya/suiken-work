@@ -71,7 +71,7 @@ def index():
     if "user_id" not in session:
         return redirect("/login")
     user = User.query.get(session["user_id"])
-    meals = Meal.query.filter_by(user_id=user.id).all()
+    meals = Meal.query.filter_by(user_id=user.id).all()  #条件に合うレコードがリストで返される
     return render_template("index.html", user=user, meals=meals)
 
 # 新規登録
@@ -105,6 +105,7 @@ def login():
     return render_template("login.html")
 
 # ログアウト
+# user_id を session から取り出して削除する。もし存在しなければ None を返して何もしない
 @app.route("/logout")
 def logout():
     session.pop("user_id", None)

@@ -26,7 +26,7 @@ cursor.execute("INSERT INTO 社員(社員ID,名前,年齢) VALUES (?,?,?)",
 cursor.execute("UPDATE 社員 SET 年齢 = ? WHERE 名前 = ?",(age,name))
 
 # cursor.execute(...) は、**「このSQL文をデータベースに送って、実行してください」**という命令です。
-cursor.execute("DELETE FROM 社員 WHERE 社員ID = ?",(3,))
+cursor.execute("DELETE FROM 社員 WHERE 社員ID = ?",(4,))
 
 conn.commit()
 
